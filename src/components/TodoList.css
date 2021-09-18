@@ -1,0 +1,13 @@
+.todo-list-container {
+  padding: 30px;
+  width: 600px;
+  margin: auto;
+}
+
+.todo-list-container h1 {
+  text-align: center;
+}
+
+.list-container {
+  margin-top: 15px;
+}

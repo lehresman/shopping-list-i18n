@@ -1,0 +1,45 @@
+.list-item {
+  cursor: pointer;
+  padding: 15px;
+  border-top: 1px solid #efefef;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.list-item:last-child {
+  border-bottom: 1px solid #efefef;
+}
+
+.list-item:hover {
+  background-color: #fafafa;
+}
+
+.list-item input[type="checkbox"] {
+  margin-right: 15px;
+}
+
+.list-item .info-container {
+  flex-grow: 1;
+}
+
+.list-item .details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.list-item .cost {
+
+}
+
+.list-item.completed .note {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.list-item .completed-info {
+  font-size: 80%;
+  color: #999;
+}

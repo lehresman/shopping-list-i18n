@@ -1,0 +1,20 @@
+.locale-selector {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.locale-selector select {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+}
+
+.locale-selector select:first-child {
+  margin-right: 15px;
+}
