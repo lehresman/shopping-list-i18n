@@ -47,3 +47,8 @@ msgstr ""
 msgctxt "99f6e415-aed1-43f0-bfe1-a22e9a10584d"
 msgid "Number Format"
 msgstr ""
+
+#. A description of how many items are on the shopping list.
+msgctxt "0d41754e-5d02-48d8-899b-cddedae69784"
+msgid "You have {num, plural, one {1 item} other {# items}} on your list."
+msgstr ""

@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlContext } from 'react-intl';
-import { MSG_welcomeMessage } from "../strings";
+import { MSG_itemCount, MSG_welcomeMessage } from "../strings";
 import { AddItemInput } from "./AddItemInput";
 import { ListItem } from "./ListItem";
 import "./ShoppingList.css";
@@ -15,9 +15,21 @@ function ShoppingList() {
     <div className="shopping-list-container">
       <h1>{formatMessage(MSG_welcomeMessage)}</h1>
 
+      {/*
+        <h1>
+          <FormattedMessage
+            id="e515e30e-9d58-4b38-8806-778d51001813"
+            description="This is the name of our application"
+            defaultMessage="My Shopping List"
+          />
+        </h1>
+      */}
+
       <LocaleSelector/>
 
       <AddItemInput/>
+
+      <h2>{formatMessage(MSG_itemCount, {num: items.length})}</h2>
 
       <div className="list-container">
         {items.map(item => <ListItem key={item.id} item={item}/>)}

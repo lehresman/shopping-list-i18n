@@ -58,3 +58,8 @@ export const MSG_numberFormat = {
   defaultMessage: "Number Format"
 };
 
+export const MSG_itemCount = {
+  id: "0d41754e-5d02-48d8-899b-cddedae69784",
+  description: "A description of how many items are on the shopping list.",
+  defaultMessage: "You have {num, plural, one {1 item} other {# items}} on your list."
+};

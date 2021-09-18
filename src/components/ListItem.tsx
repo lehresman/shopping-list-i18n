@@ -24,10 +24,13 @@ function ListItem(props: IProps) {
       <div className="info-container">
         <div className="details">
           <div className="note">{item.note}</div>
+          {/* Display the localized cost string.  Example:  $1,234.56 */}
           <div className="cost">{formatCurrency(item.cost, localeSettings)}</div>
+
         </div>
         {item.completed && item.completedOn && (
           <div className="completed-info">
+            {/* Display the localized date string.  Example:  October 25, 2021 */}
             {formatMessage(MSG_completedOn, {date: formatDate(item.completedOn, localeSettings)})}
           </div>)}
       </div>
