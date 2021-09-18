@@ -11,11 +11,13 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "dayjs": "^1.10.7",
+    "gettext-parser": "^4.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-intl": "^5.20.10",
     "react-scripts": "4.0.3",
     "typescript": "^4.1.2",
+    "typescript-react-intl": "^0.4.1",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

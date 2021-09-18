@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+let fs = require('fs');
+var gettextParser = require("gettext-parser");
+var _ = require('lodash');
+
+function run() {
+  if (!fs.existsSync(`src/locales`)) {
+    console.log(`Skipping src/locales -- directory does not exist.`);
+    return;
+  }
+
+  fs.readdirSync(`src/locales/`).forEach(filename => {
+    if (!filename.match(/\.po$/)) return;
+    let locale = filename.match(/([-\w]+)\./)[1];
+    console.log(`Building src/locales/${locale}.json (from: src/locales/${filename})...`);
+
+    let input = fs.createReadStream(`src/locales/${filename}`);
+    let po = gettextParser.po.createParseStream({});
+    let strings = {};
+
+    input.pipe(po);
+    if (!fs.existsSync(`src/locales`)) {
+      fs.mkdirSync(`src/locales`);
+    }
+
+    po.on('data', function (data) {
+      _.each(data.translations, tr => {
+        let obj = _.values(tr)[0];
+        if (!obj.msgctxt) return;
+        strings[obj.msgctxt] = obj.msgstr[0];
+      });
+      fs.writeFileSync(`src/locales/${locale}.json`, JSON.stringify(strings, null, 2));
+    });
+
+  });
+}
+
+run();
+

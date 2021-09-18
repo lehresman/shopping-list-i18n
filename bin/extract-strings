@@ -1,0 +1,155 @@
+#!/usr/bin/env node
+
+// Gettext PO file format:
+// http://pology.nedohodnik.net/doc/user/en_US/ch-poformat.html
+
+let fs = require('fs');
+let ts = require('typescript');
+let glob = require('glob');
+let parser = require('typescript-react-intl').default;
+let defs = {};
+
+function findUsedMessages(contents) {
+  let messageVars = [];
+  let match = contents.replace(/\s+/g, " ").match(/import\s+\{[^}]+}\s+from\s+".+\/strings"/g);
+  if (match) {
+    let str = match[0];
+    str = str.replace(/^.*{\s+/, '').replace(/\s*}.*/, '');
+    messageVars = str.split(/\s*,\s*/);
+  }
+  return messageVars;
+}
+
+function copyIfMessageKey(target, key, value) {
+  switch (key) {
+    case "defaultMessage":
+    case "description":
+    case "id":
+      target[key] = value;
+      break;
+    default:
+      break;
+  }
+}
+
+function forAllVarDecls(node, cb) {
+  if (ts.isVariableDeclaration(node) || ts.isExportAssignment(node)) {
+    cb(node);
+  }
+  else {
+    ts.forEachChild(node, function (n) { return forAllVarDecls(n, cb); });
+  }
+}
+
+function extractMessage(objLiteral) {
+  const msg = {};
+  objLiteral.properties.forEach((ip) => {
+    if (
+      ip.name &&
+      (ts.isIdentifier(ip.name) || ts.isLiteralExpression(ip.name))
+    ) {
+      const name = ip.name.text;
+      if (
+        ts.isPropertyAssignment(ip) &&
+        (ts.isStringLiteral(ip.initializer) ||
+          ts.isNoSubstitutionTemplateLiteral(ip.initializer))
+      ) {
+        copyIfMessageKey(msg, name, ip.initializer.text);
+      }
+    }
+  });
+  return msg;
+}
+
+function escape(str, skipQuotes) {
+  str = (str || '').replace(/\s+/g, ' ');
+  if (!skipQuotes) {
+    str = str.replace(/\\/g, "\\\\").replace(/"/, "\\\"");
+  }
+  return str;
+}
+
+async function run() {
+  let results = [];
+  let strings = [];
+
+  let filenamePatterns = [
+    'src/**/*.ts*',
+  ];
+  let promises = filenamePatterns.map(pattern => new Promise(resolve => {
+    glob(pattern, function (err, files) {
+      if (err) {
+        throw new Error(err);
+      }
+      files.forEach(f => {
+        let contents = fs.readFileSync(f).toString();
+        let res = parser(contents);
+        res.forEach(r => results.push(r));
+
+        // pull out all the uses of MSG_* messages.
+        strings = [...strings, ...findUsedMessages(contents)];
+      });
+
+      resolve();
+    });
+  }))
+
+  await Promise.all(promises);
+
+  // Extract strings from src/strings to be translated.
+  const stringFilenamePatterns = [
+    'src/strings.ts',
+  ];
+  promises = stringFilenamePatterns.map(pattern => new Promise(resolve => {
+    glob(pattern, function (err, files) {
+      files.forEach(f => {
+        let contents = fs.readFileSync(f).toString();
+        var sourceFile = ts.createSourceFile("file.ts", contents, ts.ScriptTarget.ES2015,
+          /*setParentNodes */ false, ts.ScriptKind.TSX);
+        forAllVarDecls(sourceFile, (decl) => {
+          if (decl.name && decl.name.escapedText.match(/^MSG_/)) {
+            // TEMPORARY: for now, only push the message if it is used in public.  We are currently
+            // only paying translators to translate these strings, not ALL our strings.  Eventually
+            // when the full app is translated, this extra check can be removed.
+            if (strings.includes(decl.name.escapedText)) {
+              results.push(extractMessage(decl.initializer));
+            }
+          }
+        })
+      });
+
+      resolve();
+    });
+  }));
+  Promise.all(promises).then(() => {
+    let entries = [];
+    let hasErrors = false;
+    results.forEach(r => {
+      if (defs[r.id]) {
+        console.log(`--- [${project}] ERROR:  DUPLICATE ID "${r.id}" ---`);
+        console.log('>>> First Occurrence:');
+        console.log(defs[r.id]);
+        console.log('>>> Offending Occurrence:');
+        console.log(r);
+        hasErrors = true;
+      }
+
+      defs[r.id] = r;
+      let output = "";
+      output += `#. ${escape(r.description, true)}\n`;
+      output += `msgctxt "${r.id}"\n`;
+      output += `msgid "${escape(r.defaultMessage)}"\n`;
+      output += `msgstr ""`;
+      entries.push(output);
+    });
+
+    if (hasErrors) {
+      process.exit();
+    } else {
+      console.log(`Writing: my_shopping_list.pot`);
+      fs.writeFileSync(`my_shopping_list.pot`, entries.join("\n\n"));
+    }
+  });
+}
+
+run().then(() => console.log('Done'));

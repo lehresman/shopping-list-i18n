@@ -52,7 +52,7 @@ export function LocaleSelector() {
                   className="form-control"
                   onChange={e => setLocaleSettings({...localeSettings, dateFormat: e.currentTarget.value})}>
             {DATE_FORMATS.map(formatStr =>
-              <option value={formatStr} key={formatStr}>{dayjs().format(formatStr)}</option>)}
+              <option value={formatStr} key={formatStr}>{dayjs('2021-10-25').format(formatStr)}</option>)}
           </select>
         </div>
 

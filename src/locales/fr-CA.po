@@ -1,0 +1,63 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: fr\n"
+
+#. This is the name of our application, 'My Shopping List' in English.
+msgctxt "d6e1b0a4-9643-4b38-9523-416208f0bd5b"
+msgid "My Shopping List"
+msgstr "Ma liste de courses"
+
+#. This is the label for a button where they can add a new item to the list.
+msgctxt "6111e074-8ae5-4a24-b446-878c00b10958"
+msgid "Add Item"
+msgstr "Ajouter un item"
+
+#.
+msgctxt "52a19774-7f56-4365-814a-d0500e839e04"
+msgid "Completed on {date}"
+msgstr "Terminé le {date}"
+
+#.
+msgctxt "134071e3-ac8c-4eeb-96d5-a7755e4098a0"
+msgid "Item"
+msgstr "Article"
+
+#.
+msgctxt "09262c8b-e632-42d0-a86d-b8ca80e73c2b"
+msgid "Cost"
+msgstr "Coût"
+
+#.
+msgctxt "a02f17a5-ee03-4957-8560-309f354cb897"
+msgid "Language"
+msgstr "Langue"
+
+#.
+msgctxt "acf4fbcc-b571-4f73-8a8f-e3fb0ca7485b"
+msgid "Currency"
+msgstr "Monnaie"
+
+#.
+msgctxt "bd0ab78f-300a-4793-95ce-5c072e1bf13c"
+msgid "Symbol Position"
+msgstr "Position du symbole"
+
+#.
+msgctxt "0676c26c-33ea-4444-9a4f-00cb79d29d78"
+msgid "Date Format"
+msgstr "Format de date"
+
+#.
+msgctxt "99f6e415-aed1-43f0-bfe1-a22e9a10584d"
+msgid "Number Format"
+msgstr "Format de nombre"
