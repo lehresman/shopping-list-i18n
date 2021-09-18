@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.2\n"
-"Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Language: fr\n"
 
 #. This is the name of our application, 'My Shopping List' in English.
 msgctxt "d6e1b0a4-9643-4b38-9523-416208f0bd5b"
@@ -22,42 +22,42 @@ msgctxt "6111e074-8ae5-4a24-b446-878c00b10958"
 msgid "Add Item"
 msgstr "Ajouter un item"
 
-#.
+#. The date that an item was completed.
 msgctxt "52a19774-7f56-4365-814a-d0500e839e04"
 msgid "Completed on {date}"
 msgstr "Terminé le {date}"
 
-#.
+#. The label for an item in our shopping list. This is the notes that they write to describe the item in the list.
 msgctxt "134071e3-ac8c-4eeb-96d5-a7755e4098a0"
 msgid "Item"
 msgstr "Article"
 
-#.
+#. This is the label that goes on top of where the user enters how much an item costs.
 msgctxt "09262c8b-e632-42d0-a86d-b8ca80e73c2b"
 msgid "Cost"
 msgstr "Coût"
 
-#.
+#. This is the label for a selector where the user can select their language.
 msgctxt "a02f17a5-ee03-4957-8560-309f354cb897"
 msgid "Language"
 msgstr "Langue"
 
-#.
+#. This is the label for a selector where the user can select their currency
 msgctxt "acf4fbcc-b571-4f73-8a8f-e3fb0ca7485b"
 msgid "Currency"
 msgstr "Monnaie"
 
-#.
+#. This is the label for where a user can select how their currency symbol is displayed. For example, in US the symbol is located before (e.g. $1.00) but some places in Canada show the symbol after the amount (e.g. 1.00$).
 msgctxt "bd0ab78f-300a-4793-95ce-5c072e1bf13c"
 msgid "Symbol Position"
 msgstr "Position du symbole"
 
-#.
+#. This is the label where a user can select how dates are formatted.
 msgctxt "0676c26c-33ea-4444-9a4f-00cb79d29d78"
 msgid "Date Format"
 msgstr "Format de date"
 
-#.
+#. This is the label where a user can select how numbers are formatted.
 msgctxt "99f6e415-aed1-43f0-bfe1-a22e9a10584d"
 msgid "Number Format"
 msgstr "Format de nombre"
