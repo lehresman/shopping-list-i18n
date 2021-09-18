@@ -8,7 +8,6 @@ import dayjs from "dayjs";
 function LocaleSelector() {
   const {localeSettings, setLocaleSettings} = React.useContext(LocaleContext);
 
-  console.log(localeSettings);
   return (
     <div className="locale-selector">
       <div>

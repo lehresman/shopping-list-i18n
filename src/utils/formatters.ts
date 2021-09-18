@@ -20,7 +20,6 @@ export function formatNumber(value: number, localeSettings: ILocaleSettings, min
 }
 
 export function formatCurrency(amount: number, localeSettings: ILocaleSettings): string {
-  console.log(localeSettings.currency);
   const format = CURRENCIES[localeSettings.currency];
   let str = formatNumber(amount / Math.pow(10, format.decimals), localeSettings, format.decimals);
   if (localeSettings.currencySymbolPosition === 'before') str = `${format.symbol}${str}`;
