@@ -1,11 +1,43 @@
 .locale-selector {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: flex-start;
   margin-bottom: 25px;
+  padding: 15px;
+  border: 1px solid #dfdfdf;
+  background-color: #efefef;
+  border-radius: 5px;
 }
 
-.locale-selector select {
+.locale-selector>div {
+  width: 50%;
+}
+
+.locale-selector>div:first-child {
+  margin-right: 15px;
+}
+
+.locale-selector>div:last-child {
+  margin-left: 15px;
+}
+
+.locale-selector .form-group {
+  margin-bottom: 15px;
+}
+.locale-selector .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.locale-selector .form-group label {
   display: block;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.locale-selector .form-group .form-control {
+  display: block;
+  width: 100%;
   font-size: 18px;
   font-weight: bold;
   line-height: 32px;
@@ -13,8 +45,4 @@
   padding: 0 8px;
   border: 1px solid #aaa;
   border-radius: 5px;
-}
-
-.locale-selector select:first-child {
-  margin-right: 15px;
 }

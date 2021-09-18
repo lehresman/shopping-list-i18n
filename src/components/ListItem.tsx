@@ -1,10 +1,10 @@
 import * as React from "react";
-import { IItem, ItemsContext } from "../utils/items";
 import "./ListItem.css";
 import { IntlContext } from "react-intl";
 import { MSG_completedOn } from "../strings";
 import { formatCurrency, formatDate } from "../utils/formatters";
-import { LocaleContext } from "../utils/i18n";
+import { IItem, ItemsContext } from "../utils/items_context";
+import { LocaleContext } from "../utils/locale_context";
 
 interface IProps {
   item: IItem;
@@ -12,7 +12,7 @@ interface IProps {
 
 function ListItem(props: IProps) {
   const {item} = props;
-  const {currency, locale} = React.useContext(LocaleContext);
+  const {localeSettings} = React.useContext(LocaleContext);
   const {formatMessage} = React.useContext(IntlContext);
   const {setItemComplete} = React.useContext(ItemsContext);
 
@@ -24,11 +24,11 @@ function ListItem(props: IProps) {
       <div className="info-container">
         <div className="details">
           <div className="note">{item.note}</div>
-          <div className="cost">{formatCurrency(item.cost, currency, locale)}</div>
+          <div className="cost">{formatCurrency(item.cost, localeSettings)}</div>
         </div>
         {item.completed && item.completedOn && (
           <div className="completed-info">
-            {formatMessage(MSG_completedOn, {date: formatDate(item.completedOn, locale)})}
+            {formatMessage(MSG_completedOn, {date: formatDate(item.completedOn, localeSettings)})}
           </div>)}
       </div>
     </label>

@@ -1,28 +1,27 @@
 import * as React from "react";
-import { ItemsContext } from "../utils/items";
 import { IntlContext } from "react-intl";
 import { MSG_addItem, MSG_cost, MSG_noteExample } from "../strings";
 import "./AddItemInput.css";
-import { CURRENCIES, LocaleContext } from "../utils/i18n";
+import { LocaleContext } from "../utils/locale_context";
+import { ItemsContext } from "../utils/items_context";
+import { parseCurrency } from "../utils/formatters";
 
 function AddItemInput() {
   const [note, setNote] = React.useState<string>('');
   const [costStr, setCostStr] = React.useState<string>('');
-  const {currency} = React.useContext(LocaleContext)
+  const {localeSettings} = React.useContext(LocaleContext)
   const {addItem} = React.useContext(ItemsContext);
   const {formatMessage} = React.useContext(IntlContext);
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
-    let cost: number = parseFloat(costStr);
-    if (!cost) {
-      alert("A numeric cost is required.");
-      return;
+    try {
+      addItem(note, parseCurrency(costStr, localeSettings));
+      setNote('');
+      setCostStr('')
+    } catch(str) {
+      alert(str);
     }
-    cost = Math.round(cost * Math.pow(10, CURRENCIES[currency].decimals));
-    addItem(note, cost);
-    setNote('');
-    setCostStr('')
   }
 
   return (

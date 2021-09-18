@@ -1,13 +1,13 @@
-import { CURRENCIES, LOCALES } from "./i18n";
 import dayjs from "dayjs";
+import { CURRENCIES, NUMBER_FORMATS } from "./constants";
+import { ILocaleSettings } from "./locale_context";
 
-export function formatDate(date: Date, localeStr: string): string {
-  const locale = LOCALES[localeStr];
-  return dayjs(date).format(locale.dateFormat);
+export function formatDate(date: Date, localeSettings: ILocaleSettings): string {
+  return dayjs(date).format(localeSettings.dateFormat);
 }
 
-export function formatNumber(value: number, localeStr: string, minimumFractionDigits?: number) {
-  const locale = LOCALES[localeStr];
+export function formatNumber(value: number, localeSettings: ILocaleSettings, minimumFractionDigits?: number) {
+  const format = NUMBER_FORMATS[localeSettings.numberFormat];
   let valueStr: string;
   if (typeof minimumFractionDigits === 'number') {
     valueStr = `${(Math.round(value * Math.pow(10, minimumFractionDigits)) / Math.pow(10, minimumFractionDigits)).toFixed(minimumFractionDigits)}`;
@@ -15,15 +15,22 @@ export function formatNumber(value: number, localeStr: string, minimumFractionDi
     valueStr = `${value}`;
   }
   let parts = valueStr.split(".");
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, locale.numberFormat.separatorStr);
-  return parts.join(locale.numberFormat.fractionStr);
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, format.separatorStr);
+  return parts.join(format.fractionStr);
 }
 
-export function formatCurrency(amount: number, currencyStr: string, localeStr: string): string {
-  const format = CURRENCIES[currencyStr];
-  const locale = LOCALES[localeStr];
-  let str = formatNumber(amount / Math.pow(10, format.decimals), localeStr, format.decimals);
-  if (locale.currencySymbolPosition === 'before') str = `${format.symbol}${str}`;
-  if (locale.currencySymbolPosition === 'after') str = `${str}${format.symbol}`;
+export function formatCurrency(amount: number, localeSettings: ILocaleSettings): string {
+  console.log(localeSettings.currency);
+  const format = CURRENCIES[localeSettings.currency];
+  let str = formatNumber(amount / Math.pow(10, format.decimals), localeSettings, format.decimals);
+  if (localeSettings.currencySymbolPosition === 'before') str = `${format.symbol}${str}`;
+  if (localeSettings.currencySymbolPosition === 'after') str = `${str}${format.symbol}`;
   return str;
+}
+
+export function parseCurrency(str: string, localeSettings: ILocaleSettings): number {
+  let cost: number = parseFloat(str);
+  if (!cost) throw "A numeric cost is required.";
+  const format = CURRENCIES[localeSettings.currency];
+  return Math.round(cost * Math.pow(10, format.decimals));
 }
