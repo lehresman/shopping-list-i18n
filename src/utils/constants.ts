@@ -43,10 +43,6 @@ export const LOCALES: {[key: string]: ILocale} = {
     label: 'English (United States)',
     locale: 'en-US',
   },
-  'en-GB': {
-    label: 'English (Great Britain)',
-    locale: 'en-GB',
-  },
   'fr-CA': {
     label: 'Français (Canada)',
     locale: 'fr-CA',

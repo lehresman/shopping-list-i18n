@@ -4,15 +4,18 @@ import { LocaleContext } from "../utils/locale_context";
 import { CURRENCIES, CurrencySymbolPosition, DATE_FORMATS, LOCALES, NUMBER_FORMATS } from "../utils/constants";
 import { formatCurrency, formatNumber } from "../utils/formatters";
 import dayjs from "dayjs";
+import { MSG_currency, MSG_currencySymbolPosition, MSG_dateFormat, MSG_language, MSG_numberFormat } from "../strings";
+import { IntlContext } from "react-intl";
 
-function LocaleSelector() {
+export function LocaleSelector() {
   const {localeSettings, setLocaleSettings} = React.useContext(LocaleContext);
+  const {formatMessage} = React.useContext(IntlContext);
 
   return (
     <div className="locale-selector">
       <div>
         <div className="form-group">
-          <label>Language</label>
+          <label>{formatMessage(MSG_language)}</label>
           <select value={localeSettings.locale}
                   className="form-control"
                   onChange={e => setLocaleSettings({...localeSettings, locale: e.currentTarget.value})}>
@@ -22,7 +25,7 @@ function LocaleSelector() {
         </div>
 
         <div className="form-group">
-          <label>Currency</label>
+          <label>{formatMessage(MSG_currency)}</label>
           <select value={localeSettings.currency}
                   className="form-control"
                   onChange={e => setLocaleSettings({...localeSettings, currency: e.currentTarget.value})}>
@@ -32,7 +35,7 @@ function LocaleSelector() {
         </div>
 
         <div className="form-group">
-          <label>Currency Symbol</label>
+          <label>{formatMessage(MSG_currencySymbolPosition)}</label>
           <select value={localeSettings.currencySymbolPosition}
                   className="form-control"
                   onChange={e => setLocaleSettings({...localeSettings, currencySymbolPosition: e.currentTarget.value as CurrencySymbolPosition})}>
@@ -44,7 +47,7 @@ function LocaleSelector() {
 
       <div>
         <div className="form-group">
-          <label>Date Format</label>
+          <label>{formatMessage(MSG_dateFormat)}</label>
           <select value={localeSettings.dateFormat}
                   className="form-control"
                   onChange={e => setLocaleSettings({...localeSettings, dateFormat: e.currentTarget.value})}>
@@ -54,17 +57,15 @@ function LocaleSelector() {
         </div>
 
         <div className="form-group">
-          <label>Number Format</label>
+          <label>{formatMessage(MSG_numberFormat)}</label>
           <select value={localeSettings.numberFormat}
                   className="form-control"
                   onChange={e => setLocaleSettings({...localeSettings, numberFormat: e.currentTarget.value})}>
             {Object.keys(NUMBER_FORMATS).map(key =>
-              <option value={key} key={key}>{formatNumber(1000.5, {...localeSettings, numberFormat: key})}</option>)}
+              <option value={key} key={key}>{formatNumber(5555.555, {...localeSettings, numberFormat: key})}</option>)}
           </select>
         </div>
       </div>
     </div>
   );
 }
-
-export {LocaleSelector};

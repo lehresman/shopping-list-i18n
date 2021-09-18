@@ -29,7 +29,7 @@ export function formatCurrency(amount: number, localeSettings: ILocaleSettings):
 
 export function parseCurrency(str: string, localeSettings: ILocaleSettings): number {
   let cost: number = parseFloat(str);
-  if (!cost) throw "A numeric cost is required.";
+  if (!cost) throw new Error("A numeric cost is required.");
   const format = CURRENCIES[localeSettings.currency];
   return Math.round(cost * Math.pow(10, format.decimals));
 }

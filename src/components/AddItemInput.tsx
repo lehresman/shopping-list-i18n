@@ -19,14 +19,16 @@ function AddItemInput() {
       addItem(note, parseCurrency(costStr, localeSettings));
       setNote('');
       setCostStr('')
-    } catch(str) {
-      alert(str);
+      document.getElementById('note-input')?.focus();
+    } catch(e: any) {
+      alert(e.message);
     }
   }
 
   return (
     <form onSubmit={submit} className="add-item-input">
       <input type="text"
+             id="note-input"
              autoFocus
              style={{marginRight: 15, flexGrow: 1}}
              value={note}
