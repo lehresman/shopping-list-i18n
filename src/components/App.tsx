@@ -1,5 +1,5 @@
 import React from 'react';
-import { TodoList } from "./TodoList";
+import { ShoppingList } from "./ShoppingList";
 import { IntlProvider } from "react-intl";
 import { IItem, ItemsContext } from "../utils/items_context";
 import { ILocaleSettings, LocaleContext } from "../utils/locale_context";
@@ -57,7 +57,7 @@ function App() {
         <IntlProvider locale={localeSettings.locale}
                       defaultLocale="en-US"
                       messages={messages[localeSettings.locale]}>
-          <TodoList/>
+          <ShoppingList/>
         </IntlProvider>
       </LocaleContext.Provider>
     </ItemsContext.Provider>

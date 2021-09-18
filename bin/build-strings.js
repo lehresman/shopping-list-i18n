@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
 let fs = require('fs');
-var gettextParser = require("gettext-parser");
-var _ = require('lodash');
+let gettextParser = require("gettext-parser");
 
 function run() {
   if (!fs.existsSync(`src/locales`)) {
@@ -16,7 +15,7 @@ function run() {
     console.log(`Building src/locales/${locale}.json (from: src/locales/${filename})...`);
 
     let input = fs.createReadStream(`src/locales/${filename}`);
-    let po = gettextParser.po.createParseStream({});
+    let po = gettextParser.po.createParseStream();
     let strings = {};
 
     input.pipe(po);
@@ -25,8 +24,8 @@ function run() {
     }
 
     po.on('data', function (data) {
-      _.each(data.translations, tr => {
-        let obj = _.values(tr)[0];
+      data.translations.forEach(tr => {
+        let obj = Object.values(tr)[0];
         if (!obj.msgctxt) return;
         strings[obj.msgctxt] = obj.msgstr[0];
       });

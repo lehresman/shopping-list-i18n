@@ -1,10 +1,9 @@
-.todo-list-container {
-  padding: 30px;
+.shopping-list-container {
   width: 600px;
   margin: auto;
 }
 
-.todo-list-container h1 {
+.shopping-list-container h1 {
   text-align: center;
 }
 
